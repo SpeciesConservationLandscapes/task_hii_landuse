@@ -1,4 +1,6 @@
+import argparse 
 import ee
+from datetime import datetime, timezone
 from task_base import EETask
 
 
@@ -7,25 +9,18 @@ class HIILanduse(EETask):
     ee_driverdir = 'driver/landuse'
     # if input lives in ee, it should have an "ee_path" pointing to an ImageCollection/FeatureCollection
     inputs = {
-        "jrc": {
-            "ee_type": EETask.IMAGE,
-            "ee_path": "JRC/GSW1_0/GlobalSurfaceWater"
-        },
-        "caspian": {
-            "ee_type": EETask.IMAGE,
-            "ee_path": "users/aduncan/caspian"
-        },
-        "gpw_2015": {
-            "ee_type": EETask.IMAGE,
-            "ee_path": "CIESIN/GPWv411/GPW_Population_Density/gpw_v4_population_density_rev11_2015_30_sec"
+        "gpw": {
+            "ee_type": EETask.IMAGECOLLECTION,
+            "ee_path": "CIESIN/GPWv411/GPW_Population_Density",
+            "maxage": 5  # years
         },
         "esacci": {
             "ee_type": EETask.IMAGE,
             "ee_path": "users/aduncan/cci/ESACCI-LC-L4-LCCS-Map-300m-P1Y-1992_2015-v207"
         },
-        "ocean": {
+        "watermask": {
             "ee_type": EETask.IMAGE,
-            "ee_path": "users/aduncan/cci/ESACCI-LC-L4-WB-Ocean-Map-150m-P13Y-2000-v40",
+            "ee_path": "projects/HII/v1/source/phys/watermask_jrc70_cciocean",
         }
             }
     
@@ -39,36 +34,38 @@ class HIILanduse(EETask):
 
 
     def calc(self):
-        ESACCI = ee.Image(self.inputs['esacci']['ee_path']).select('b24')
-        gpw_2015 = ee.Image(self.inputs['gpw_2015']['ee_path'])
 
-        caspian = ee.FeatureCollection(self.inputs['caspian']['ee_path'])
+        watermask = ee.Image(self.inputs['watermask']['ee_path'])
+        ESACCI = ee.Image(self.inputs['esacci']['ee_path'])
+        gpw = ee.ImageCollection(self.inputs['gpw']['ee_path'])
 
-        jrc = ee.Image(self.inputs['jrc']['ee_path'])\
-                        .select('occurrence')\
-                        .lte(75)\
-                        .unmask(1)\
-                        .multiply(ee.Image(0).clip(caspian).unmask(1))
+        ee_taskdate = ee.Date(self.taskdate.strftime(self.DATE_FORMAT))
+        gpw_prior = gpw.filterDate(ee_taskdate.advance(-self.gpw_cadence, 'year'), ee_taskdate).first()
+        gpw_later = gpw.filterDate(ee_taskdate, ee_taskdate.advance(self.gpw_cadence, 'year')).first()
+        gpw_diff = gpw_later.subtract(gpw_prior)
+        numerator = ee_taskdate.difference(gpw_prior.date(), 'day')
+        gpw_diff_fraction = gpw_diff.multiply(numerator.divide(self.gpw_cadence * 365))
+        gpw_taskdate = gpw_prior.add(gpw_diff_fraction)
+        gpw_taskdate_300m = gpw_taskdate.resample().reproject(crs=self.crs, scale=self.scale)
 
-        ocean = ee.Image(self.inputs['ocean']['ee_path'])
+        popdens_oneplus = gpw_taskdate_300m.gte(1)
 
+        ee_taskdate = ee.Date(self.taskdate.strftime(self.DATE_FORMAT))
+        year = ee_taskdate.get('year')
+        yearband = ee.String('b').cat(ee.Number(year).subtract(1991).format())
 
+        ESACCI_oneyear = ESACCI.select(yearband).aside(print)
 
-
-        gpw_300m = gpw_2015.resample().reproject(crs='EPSG:4326',scale=300)
-        popdens_oneplus = gpw_300m.gte(1)
-
-        ESACCI_oneyear_postpopdens = ESACCI.multiply(popdens_oneplus.multiply(10))
+        ESACCI_oneyear_postpopdens = ESACCI_oneyear.multiply(popdens_oneplus.multiply(10))
 
 
         ESACCI_remap_input =  [10,11,12,20,30,40,190,1000,1100,1200,1210,1220,1300]
         ESACCI_remap_output = [ 7, 7, 7, 8, 6, 4, 10,   4,   4,   4,   4,   4,   4]
-        ESACCI_remapped = ESACCI_oneyear_postpopdens.remap(ESACCI_remap_input,ESACCI_remap_output,0)\
-                                                .updateMask(jrc)\
-                                                .updateMask(ocean)
+        hii_landuse_driver = ESACCI_oneyear_postpopdens.remap(ESACCI_remap_input,ESACCI_remap_output,0)\
+                                                .updateMask(watermask)
                                           
 
-        self.export_image_ee(ESACCI_remapped, '{}/{}'.format(self.ee_driverdir, 'hii_landuse_driver'))
+        self.export_image_ee(hii_landuse_driver, '{}/{}'.format(self.ee_driverdir, 'hii_landuse_driver'))
 
     def check_inputs(self):
         super().check_inputs()
@@ -76,5 +73,8 @@ class HIILanduse(EETask):
 
 
 if __name__ == "__main__":
-    landuse_task = HIILanduse()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--taskdate', default=datetime.now(timezone.utc).date())
+    options = parser.parse_args()
+    landuse_task = HIILanduse(**vars(options))
     landuse_task.run()
