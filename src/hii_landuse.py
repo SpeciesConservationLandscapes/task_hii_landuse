@@ -76,5 +76,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--taskdate', default=datetime.now(timezone.utc).date())
     options = parser.parse_args()
+    print('options are {}'.format(options))
     landuse_task = HIILanduse(**vars(options))
     landuse_task.run()
