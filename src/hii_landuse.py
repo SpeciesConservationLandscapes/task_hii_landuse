@@ -15,7 +15,8 @@ class HIILanduse(EETask):
             "maxage": 5,  # years
         },
         # TODO: This should be an image collection, and in projects/HII/v1/source/phys
-        # TODO: Replace source? How do we calculate beyond 2015?
+        # TODO: Replace source? How do we calculate beyond 2015? How do we calculate at a resolution < 1 year?
+        # Also this failed with taskdate=2010-01-01 because "Pattern 'b29' did not match any bands"
         "esacci": {
             "ee_type": EETask.IMAGE,
             "ee_path": "users/aduncan/cci/ESACCI-LC-L4-LCCS-Map-300m-P1Y-1992_2015-v207",
@@ -27,7 +28,7 @@ class HIILanduse(EETask):
             "maxage": 20,
         },
     }
-    scale = 300  # TODO: should this be default of 1000?
+    scale = 300
     gpw_cadence = 5
 
     def __init__(self, *args, **kwargs):
