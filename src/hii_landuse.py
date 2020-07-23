@@ -13,20 +13,16 @@ class HIILanduse(EETask):
             "ee_path": f"{ee_rootdir}/misc/gpw_interpolated",
             "maxage": 1,
         },
-        # TODO: Replace source? How do we calculate beyond 2015? How do we calculate at a resolution < 1 year?
-        # (Adams note: Now an image collection to 2018. I don't think it will be possible to calculate at a resolution < 1 year?)
 
         "esacci": {
             "ee_type": EETask.IMAGECOLLECTION,
             "ee_path": "projects/HII/v1/source/lc/ESACCI-LC-L4-LCCS-Map-300m-P1Y-1992_2015-v207",
             "maxage": 3,
         },
-        # TODO: assign actual date to this source. I temporarily assigned 1992-01-01 00:00:00.
-        # (Adam's note: jrc70 means water occurred there at least 70% of the time, from  16 March 1984 and 10 October 2015... I've set it to 16 March 1984; is that ok?)
         "watermask": {
             "ee_type": EETask.IMAGE,
             "ee_path": "projects/HII/v1/source/phys/watermask_jrc70_cciocean",
-            "maxage": 50,
+            "static": True,
         },
     }
     scale = 300
@@ -76,6 +72,7 @@ class HIILanduse(EETask):
                                 .add(esacci_122.multiply(4))\
                                 .add(esacci_130.multiply(4))\
                                 .updateMask(watermask)
+                                
         self.export_image_ee(
             hii_landuse_driver, "{}/{}".format(self.ee_driverdir, "hii_landuse_driver")
         )
