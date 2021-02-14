@@ -90,5 +90,6 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--realm", default='Afrotropic')
     parser.add_argument("-d", "--taskdate", default=datetime.now(timezone.utc).date())
     options = parser.parse_args()
+    print('options are {}'.format(options))
     landuse_task = HIILanduse(**vars(options))
     landuse_task.run()
