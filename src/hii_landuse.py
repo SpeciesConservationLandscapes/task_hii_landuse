@@ -173,7 +173,7 @@ class HIILanduse(HIITask):
             .reduce(ee.Reducer.max())
             .unmask(0)
             .updateMask(self.watermask)
-            .muliplty(100)
+            .multiply(100)
             .int()
             .rename("hii_landuse_driver")
         )
