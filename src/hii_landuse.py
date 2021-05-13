@@ -143,21 +143,19 @@ class HIILanduse(HIITask):
             raise Exception("no valid GPW image")
 
         pod_dens_threshold = gpw_taskdate.gte(self.POPULATION_DENSITY_THRESHOLD)
-        altered_from = []
-        altered_to = []
-        natural_from = []
-        natural_to = []
 
-        altered_remap = self.landuse_weighting["altered_landcover"]
-        natural_remap = self.landuse_weighting["natural_landcover"]
-
-        for i in altered_remap:
-            altered_from.append(i["lc_class"])
-            altered_to.append(i["weight"])
-
-        for i in natural_remap:
-            natural_from.append(i["lc_class"])
-            natural_to.append(i["weight"])
+        altered_from, altered_to = zip(
+            *[
+                (i["lc_class"], i["weight"])
+                for i in self.landuse_weighting["altered_landcover"]
+            ]
+        )
+        natural_from, natural_to = zip(
+            *[
+                (i["lc_class"], i["weight"])
+                for i in self.landuse_weighting["natural_landcover"]
+            ]
+        )
 
         altered_lc_weighted = self.esacci.remap(altered_from, altered_to).rename(
             "altered"
