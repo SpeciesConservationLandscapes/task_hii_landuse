@@ -110,3 +110,5 @@ venv.bak/
 buildrun.sh
 
 .DS_Store
+
+.idea/
