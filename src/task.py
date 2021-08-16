@@ -28,11 +28,7 @@ class HIILanduse(HIITask):
 
     landuse_weighting = {
         "altered_landcover": [
-            {
-                "lc_category": "Cropland, rainfed",
-                "lc_class": 10,
-                "weight": 7,
-            },
+            {"lc_category": "Cropland, rainfed", "lc_class": 10, "weight": 7,},
             {
                 "lc_category": "Cropland, rainfed - Herbaceous cover",
                 "lc_class": 11,
@@ -44,14 +40,77 @@ class HIILanduse(HIITask):
                 "weight": 7,
             },
             {
-                "lc_category": "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)",
+                "lc_category": "Cropland, irrigated or post-flooding",
                 "lc_class": 20,
                 "weight": 8,
             },
             {
-                "lc_category": "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)",
+                "lc_category": "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)",
                 "lc_class": 30,
                 "weight": 6,
+            },
+            {"lc_category": "Urban areas", "lc_class": 190, "weight": 10,},
+        ],
+        "natural_landcover": [
+            {
+                "lc_category": "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)",
+                "lc_class": 40,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, broadleaved, evergreen, closed to open (>15%)",
+                "lc_class": 50,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, broadleaved, deciduous, closed to open (>15%)",
+                "lc_class": 60,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, broadleaved, deciduous, closed (>40%)",
+                "lc_class": 61,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, broadleaved, deciduous, open (15‐40%)",
+                "lc_class": 62,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, needleleaved, evergreen, closed to open (>15%)",
+                "lc_class": 70,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, needleleaved, evergreen, closed (>40%)",
+                "lc_class": 71,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, needleleaved, evergreen, open (15‐40%)",
+                "lc_class": 72,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, needleleaved, deciduous, closed to open (>15%)",
+                "lc_class": 80,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, needleleaved, deciduous, closed (>40%)",
+                "lc_class": 81,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, needleleaved, deciduous, open (15‐40%)",
+                "lc_class": 82,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, mixed leaf type (broadleaved and needleleaved)",
+                "lc_class": 90,
+                "weight": 4,
             },
             {
                 "lc_category": "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)",
@@ -63,13 +122,7 @@ class HIILanduse(HIITask):
                 "lc_class": 110,
                 "weight": 4,
             },
-            {
-                "lc_category": "Urban areas",
-                "lc_class": 190,
-                "weight": 10,
-            },
-        ],
-        "natural_landcover": [
+            {"lc_category": "Shrubland", "lc_class": 120, "weight": 4,},
             {
                 "lc_category": "Shrubland - Evergreen shrubland",
                 "lc_class": 121,
@@ -80,9 +133,62 @@ class HIILanduse(HIITask):
                 "lc_class": 122,
                 "weight": 4,
             },
+            {"lc_category": "Grassland", "lc_class": 130, "weight": 4,},
             {
-                "lc_category": "Grassland",
-                "lc_class": 130,
+                "lc_category": "Lichens and mosses",
+                "lc_class": 140,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)",
+                "lc_class": 150,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Sparse tree (<15%)",
+                "lc_class": 151,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Sparse shrub (<15%)",
+                "lc_class": 152,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Sparse herbaceous cover (<15%)",
+                "lc_class": 153,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, flooded, fresh or brakish water",
+                "lc_class": 160,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Tree cover, flooded, saline water",
+                "lc_class": 170,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Shrub or herbaceous cover, flooded, fresh/saline/brakish water",
+                "lc_class": 180,
+                "weight": 4,
+            },
+            {"lc_category": "Bare areas", "lc_class": 200, "weight": 4,},
+            {
+                "lc_category": "Consolidated bare areas",
+                "lc_class": 201,
+                "weight": 4,
+            },
+            {
+                "lc_category": "Unconsolidated bare areas",
+                "lc_class": 202,
+                "weight": 4,
+            },
+            {"lc_category": "Water bodies", "lc_class": 210, "weight": 4,},
+            {
+                "lc_category": "Permanent snow and ice",
+                "lc_class": 220,
                 "weight": 4,
             },
         ],
@@ -105,14 +211,17 @@ class HIILanduse(HIITask):
 
     def gpw_interpolated(self):
         gpw_prev = self.gpw.filterDate(
-            self.ee_taskdate.advance(-self.gpw_cadence, "year"), self.ee_taskdate
+            self.ee_taskdate.advance(-self.gpw_cadence, "year"),
+            self.ee_taskdate,
         ).first()
         gpw_next = self.gpw.filterDate(
             self.ee_taskdate, self.ee_taskdate.advance(self.gpw_cadence, "year")
         ).first()
 
         gpw_delta_days = gpw_next.date().difference(gpw_prev.date(), "day")
-        taskdate_delta_days = self.ee_taskdate.difference(gpw_prev.date(), "day")
+        taskdate_delta_days = self.ee_taskdate.difference(
+            gpw_prev.date(), "day"
+        )
 
         gpw_diff = gpw_next.subtract(gpw_prev)
 
@@ -128,7 +237,9 @@ class HIILanduse(HIITask):
             self.gpw.sort("system:time_start").first().get("system:time_start")
         ).millis()
         gpw_last_date = ee.Date(
-            self.gpw.sort("system:time_start", False).first().get("system:time_start")
+            self.gpw.sort("system:time_start", False)
+            .first()
+            .get("system:time_start")
         ).millis()
         start_test = ee_taskdate_millis.lte(gpw_first_date)
         end_test = ee_taskdate_millis.gte(gpw_last_date)
@@ -157,9 +268,9 @@ class HIILanduse(HIITask):
             ]
         )
 
-        altered_lc_weighted = self.esacci.remap(altered_from, altered_to).rename(
-            "altered"
-        )
+        altered_lc_weighted = self.esacci.remap(
+            altered_from, altered_to
+        ).rename("altered")
         natural_lc_weighted = (
             self.esacci.remap(natural_from, natural_to)
             .multiply(pod_dens_threshold)
@@ -177,8 +288,7 @@ class HIILanduse(HIITask):
         )
 
         self.export_image_ee(
-            hii_landuse_driver,
-            f"driver/land_use",
+            hii_landuse_driver, f"driver/land_use",
         )
 
     def check_inputs(self):
