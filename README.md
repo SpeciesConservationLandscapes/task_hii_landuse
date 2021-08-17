@@ -14,11 +14,7 @@ For any given task date between two available GPW input images, the estimated po
 ```
 landuse_weighting = {
       "altered_landcover": [
-          {
-              "lc_category": "Cropland, rainfed",
-              "lc_class": 10,
-              "weight": 7,
-          },
+          {"lc_category": "Cropland, rainfed", "lc_class": 10, "weight": 7,},
           {
               "lc_category": "Cropland, rainfed - Herbaceous cover",
               "lc_class": 11,
@@ -30,14 +26,77 @@ landuse_weighting = {
               "weight": 7,
           },
           {
-              "lc_category": "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)",
+              "lc_category": "Cropland, irrigated or post-flooding",
               "lc_class": 20,
               "weight": 8,
           },
           {
-              "lc_category": "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)",
+              "lc_category": "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)",
               "lc_class": 30,
               "weight": 6,
+          },
+          {"lc_category": "Urban areas", "lc_class": 190, "weight": 10,},
+      ],
+      "natural_landcover": [
+          {
+              "lc_category": "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)",
+              "lc_class": 40,
+              "weight": 4,
+          },
+          {
+              "lc_category": "Tree cover, broadleaved, evergreen, closed to open (>15%)",
+              "lc_class": 50,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, broadleaved, deciduous, closed to open (>15%)",
+              "lc_class": 60,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, broadleaved, deciduous, closed (>40%)",
+              "lc_class": 61,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, broadleaved, deciduous, open (15‐40%)",
+              "lc_class": 62,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, needleleaved, evergreen, closed to open (>15%)",
+              "lc_class": 70,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, needleleaved, evergreen, closed (>40%)",
+              "lc_class": 71,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, needleleaved, evergreen, open (15‐40%)",
+              "lc_class": 72,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, needleleaved, deciduous, closed to open (>15%)",
+              "lc_class": 80,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, needleleaved, deciduous, closed (>40%)",
+              "lc_class": 81,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, needleleaved, deciduous, open (15‐40%)",
+              "lc_class": 82,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, mixed leaf type (broadleaved and needleleaved)",
+              "lc_class": 90,
+              "weight": 0,
           },
           {
               "lc_category": "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)",
@@ -49,13 +108,7 @@ landuse_weighting = {
               "lc_class": 110,
               "weight": 4,
           },
-          {
-              "lc_category": "Urban areas",
-              "lc_class": 190,
-              "weight": 10,
-          },
-      ],
-      "natural_landcover": [
+          {"lc_category": "Shrubland", "lc_class": 120, "weight": 4,},
           {
               "lc_category": "Shrubland - Evergreen shrubland",
               "lc_class": 121,
@@ -66,11 +119,66 @@ landuse_weighting = {
               "lc_class": 122,
               "weight": 4,
           },
+          {"lc_category": "Grassland", "lc_class": 130, "weight": 4,},
           {
-              "lc_category": "Grassland",
-              "lc_class": 130,
-              "weight": 4,
+              "lc_category": "Lichens and mosses",
+              "lc_class": 140,
+              "weight": 0,
           },
+          {
+              "lc_category": "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)",
+              "lc_class": 150,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Sparse tree (<15%)",
+              "lc_class": 151,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Sparse shrub (<15%)",
+              "lc_class": 152,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Sparse herbaceous cover (<15%)",
+              "lc_class": 153,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, flooded, fresh or brakish water",
+              "lc_class": 160,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Tree cover, flooded, saline water",
+              "lc_class": 170,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Shrub or herbaceous cover, flooded, fresh/saline/brakish water",
+              "lc_class": 180,
+              "weight": 0,
+          },
+          {"lc_category": "Bare areas", "lc_class": 200, "weight": 4,},
+          {
+              "lc_category": "Consolidated bare areas",
+              "lc_class": 201,
+              "weight": 0,
+          },
+          {
+              "lc_category": "Unconsolidated bare areas",
+              "lc_class": 202,
+              "weight": 0,
+          },
+          {"lc_category": "Water bodies", "lc_class": 210, "weight": 4,},
+          {
+              "lc_category": "Permanent snow and ice",
+              "lc_class": 220,
+              "weight": 0,
+          },
+      ],
+  }
 ```
 
 Values are multiplied by 100 and converted to an integer for efficient exporting and storage in the Earth Engine HII Land Use Driver image collection ('projects/HII/v1/driver/land_use').
