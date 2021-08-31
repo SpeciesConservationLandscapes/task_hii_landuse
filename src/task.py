@@ -20,7 +20,11 @@ class HIILanduse(HIITask):
 
     landuse_weighting = {
         "altered_landcover": [
-            {"lc_category": "Cropland, rainfed", "lc_class": 10, "weight": 7,},
+            {
+                "lc_category": "Cropland, rainfed",
+                "lc_class": 10,
+                "weight": 7,
+            },
             {
                 "lc_category": "Cropland, rainfed - Herbaceous cover",
                 "lc_class": 11,
@@ -41,7 +45,11 @@ class HIILanduse(HIITask):
                 "lc_class": 30,
                 "weight": 6,
             },
-            {"lc_category": "Urban areas", "lc_class": 190, "weight": 10,},
+            {
+                "lc_category": "Urban areas",
+                "lc_class": 190,
+                "weight": 10,
+            },
         ],
         "natural_landcover": [
             {
@@ -114,7 +122,11 @@ class HIILanduse(HIITask):
                 "lc_class": 110,
                 "weight": 4,
             },
-            {"lc_category": "Shrubland", "lc_class": 120, "weight": 4,},
+            {
+                "lc_category": "Shrubland",
+                "lc_class": 120,
+                "weight": 4,
+            },
             {
                 "lc_category": "Shrubland - Evergreen shrubland",
                 "lc_class": 121,
@@ -125,7 +137,11 @@ class HIILanduse(HIITask):
                 "lc_class": 122,
                 "weight": 4,
             },
-            {"lc_category": "Grassland", "lc_class": 130, "weight": 4,},
+            {
+                "lc_category": "Grassland",
+                "lc_class": 130,
+                "weight": 4,
+            },
             {
                 "lc_category": "Lichens and mosses",
                 "lc_class": 140,
@@ -166,7 +182,11 @@ class HIILanduse(HIITask):
                 "lc_class": 180,
                 "weight": 0,
             },
-            {"lc_category": "Bare areas", "lc_class": 200, "weight": 4,},
+            {
+                "lc_category": "Bare areas",
+                "lc_class": 200,
+                "weight": 4,
+            },
             {
                 "lc_category": "Consolidated bare areas",
                 "lc_class": 201,
@@ -177,7 +197,11 @@ class HIILanduse(HIITask):
                 "lc_class": 202,
                 "weight": 0,
             },
-            {"lc_category": "Water bodies", "lc_class": 210, "weight": 4,},
+            {
+                "lc_category": "Water bodies",
+                "lc_class": 210,
+                "weight": 4,
+            },
             {
                 "lc_category": "Permanent snow and ice",
                 "lc_class": 220,
@@ -194,7 +218,9 @@ class HIILanduse(HIITask):
         self.watermask = ee.Image(self.inputs["watermask"]["ee_path"])
 
     def calc(self):
-        pod_dens_threshold = self.population_density.gte(self.POPULATION_DENSITY_THRESHOLD)
+        pod_dens_threshold = self.population_density.gte(
+            self.POPULATION_DENSITY_THRESHOLD
+        )
 
         altered_from, altered_to = zip(
             *[
@@ -209,9 +235,9 @@ class HIILanduse(HIITask):
             ]
         )
 
-        altered_lc_weighted = self.esacci.remap(
-            altered_from, altered_to
-        ).rename("altered")
+        altered_lc_weighted = self.esacci.remap(altered_from, altered_to).rename(
+            "altered"
+        )
         natural_lc_weighted = (
             self.esacci.remap(natural_from, natural_to)
             .multiply(pod_dens_threshold)
@@ -229,7 +255,8 @@ class HIILanduse(HIITask):
         )
 
         self.export_image_ee(
-            hii_landuse_driver, f"driver/land_use",
+            hii_landuse_driver,
+            f"driver/land_use",
         )
 
     def check_inputs(self):
