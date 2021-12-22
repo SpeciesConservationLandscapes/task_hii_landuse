@@ -9,7 +9,7 @@ class HIILanduse(HIITask):
         "esacci": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": "projects/HII/v1/source/lc/ESACCI-LC-L4-LCCS-Map-300m-P1Y-1992_2015-v207",
-            "maxage": 3,
+            "maxage": 1,
         },
         "watermask": {
             "ee_type": HIITask.IMAGE,
