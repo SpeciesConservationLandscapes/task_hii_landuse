@@ -3,10 +3,22 @@ HII LAND USE DRIVER
 
 ## What does this task do?
 
-This task calculates the (unitless) "influence" of land use on the terrestrial surface as one of the key
-drivers for a combined [Human Influence Index](https://github.com/SpeciesConservationLandscapes/task_hii_weightedsum). "Influence" is a pressure score based on a combination of land use/land cover and population density. Land cover classes associated with human altered land uses are given unique weights representing the human pressure associated with each land use, comparable to the logic followed by [Venter et al. 2016](https://www.nature.com/articles/sdata201667)). Natural land cover classes are only given weights if the population density in a given cell is greater than 0.
+This task calculates the "influence" of anthropogenic land use on the terrestrial surface as one of the key
+drivers for a combined [Human Impact Index](https://github.com/SpeciesConservationLandscapes/task_hii_weightedsum). 
+"Influence" is a pressure score based on a combination of land use/land cover and population density. 
+Land cover classes associated with human-altered land uses are given unique weights representing the 
+human pressure associated with each land use, comparable to the logic followed by 
+[Venter et al. 2016](https://www.nature.com/articles/sdata201667)). Natural land cover classes are 
+only given weights if the population density in a given cell is greater than 0. 
+The output HII driver calculated by this task is, like all other HII drivers, unitless; it refers to an absolute 0-10
+scale but is not normalized to it, so the actual range of values may be smaller than 0-10.
 
-The source landcover data are from the [ESA CCI Landcover Dataset](http://www.esa-landcover-cci.org/). The source population density cells are derived from the WoldPop Population Data dataset developed by [WorldPop](https://www.worldpop.org/). This dataset models the distribution of the global human population annually beginning in 2000 at a spatial resolution of 100 m. As a class property of HIITask the original dataset values are converted from the number of people per 100m x 100m grid cell to actual population density of people/sq km.
+The source landcover data are from the [ESA CCI Landcover Dataset](http://www.esa-landcover-cci.org/). 
+The source population density cells are derived from the WoldPop Population Data dataset developed by 
+[WorldPop](https://www.worldpop.org/). This dataset models the distribution of the global human population 
+annually beginning in 2000 at a spatial resolution of 100 m. As a class property of HIITask the 
+original dataset values are converted from the number of people per 100m x 100m grid cell to actual 
+population density of people/sq km.
 
 
 ```
@@ -179,7 +191,8 @@ landuse_weighting = {
   }
 ```
 
-Values are multiplied by 100 and converted to an integer for efficient exporting and storage in the Earth Engine HII Land Use Driver image collection ('projects/HII/v1/driver/land_use').
+Values are multiplied by 100 and converted to integer for efficient exporting to and storage in the 
+Earth Engine HII Land Use Driver image collection (`projects/HII/v1/driver/land_use`).
 
 ## Variables and Defaults
 
@@ -208,3 +221,11 @@ optional arguments:
   -d TASKDATE, --taskdate TASKDATE
   --overwrite           overwrite existing outputs instead of incrementing
 ```
+
+### License
+Copyright (C) 2022 Wildlife Conservation Society
+The files in this repository  are part of the task framework for calculating 
+Human Impact Index and Species Conservation Landscapes (https://github.com/SpeciesConservationLandscapes) 
+and are released under the GPL license:
+https://www.gnu.org/licenses/#GPL
+See [LICENSE](./LICENSE) for details.
