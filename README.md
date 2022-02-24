@@ -3,9 +3,9 @@ HII LAND USE DRIVER
 
 ## What does this task do?
 
-This task calculates the "influence" of anthropogenic land use on the terrestrial surface as one of the key
+This task calculates the impact of anthropogenic land use on the terrestrial surface as one of the key
 drivers for a combined [Human Impact Index](https://github.com/SpeciesConservationLandscapes/task_hii_weightedsum). 
-"Influence" is a pressure score based on a combination of land use/land cover and population density. 
+"Impact" is a pressure score based on a combination of land use/land cover and population density. 
 Land cover classes associated with human-altered land uses are given unique weights representing the 
 human pressure associated with each land use, comparable to the logic followed by 
 [Venter et al. 2016](https://www.nature.com/articles/sdata201667)). Natural land cover classes are 
