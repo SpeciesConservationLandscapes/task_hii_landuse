@@ -8,7 +8,7 @@ class HIILanduse(HIITask):
     inputs = {
         "esacci": {
             "ee_type": HIITask.IMAGECOLLECTION,
-            "ee_path": "projects/HII/v1/source/lc/ESACCI-LC-L4-LCCS-Map-300m-P1Y-1992_2015-v207",
+            "ee_path": "ESA-CCI-LC-L4-LCCS",
             "maxage": 1,
         },
         "watermask": {
@@ -20,11 +20,7 @@ class HIILanduse(HIITask):
 
     landuse_weighting = {
         "altered_landcover": [
-            {
-                "lc_category": "Cropland, rainfed",
-                "lc_class": 10,
-                "weight": 7,
-            },
+            {"lc_category": "Cropland, rainfed", "lc_class": 10, "weight": 7,},
             {
                 "lc_category": "Cropland, rainfed - Herbaceous cover",
                 "lc_class": 11,
@@ -45,11 +41,7 @@ class HIILanduse(HIITask):
                 "lc_class": 30,
                 "weight": 6,
             },
-            {
-                "lc_category": "Urban areas",
-                "lc_class": 190,
-                "weight": 10,
-            },
+            {"lc_category": "Urban areas", "lc_class": 190, "weight": 10,},
         ],
         "natural_landcover": [
             {
@@ -122,11 +114,7 @@ class HIILanduse(HIITask):
                 "lc_class": 110,
                 "weight": 4,
             },
-            {
-                "lc_category": "Shrubland",
-                "lc_class": 120,
-                "weight": 4,
-            },
+            {"lc_category": "Shrubland", "lc_class": 120, "weight": 4,},
             {
                 "lc_category": "Shrubland - Evergreen shrubland",
                 "lc_class": 121,
@@ -137,31 +125,15 @@ class HIILanduse(HIITask):
                 "lc_class": 122,
                 "weight": 4,
             },
-            {
-                "lc_category": "Grassland",
-                "lc_class": 130,
-                "weight": 4,
-            },
-            {
-                "lc_category": "Lichens and mosses",
-                "lc_class": 140,
-                "weight": 0,
-            },
+            {"lc_category": "Grassland", "lc_class": 130, "weight": 4,},
+            {"lc_category": "Lichens and mosses", "lc_class": 140, "weight": 0,},
             {
                 "lc_category": "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)",
                 "lc_class": 150,
                 "weight": 0,
             },
-            {
-                "lc_category": "Sparse tree (<15%)",
-                "lc_class": 151,
-                "weight": 0,
-            },
-            {
-                "lc_category": "Sparse shrub (<15%)",
-                "lc_class": 152,
-                "weight": 0,
-            },
+            {"lc_category": "Sparse tree (<15%)", "lc_class": 151, "weight": 0,},
+            {"lc_category": "Sparse shrub (<15%)", "lc_class": 152, "weight": 0,},
             {
                 "lc_category": "Sparse herbaceous cover (<15%)",
                 "lc_class": 153,
@@ -182,31 +154,11 @@ class HIILanduse(HIITask):
                 "lc_class": 180,
                 "weight": 0,
             },
-            {
-                "lc_category": "Bare areas",
-                "lc_class": 200,
-                "weight": 4,
-            },
-            {
-                "lc_category": "Consolidated bare areas",
-                "lc_class": 201,
-                "weight": 0,
-            },
-            {
-                "lc_category": "Unconsolidated bare areas",
-                "lc_class": 202,
-                "weight": 0,
-            },
-            {
-                "lc_category": "Water bodies",
-                "lc_class": 210,
-                "weight": 4,
-            },
-            {
-                "lc_category": "Permanent snow and ice",
-                "lc_class": 220,
-                "weight": 0,
-            },
+            {"lc_category": "Bare areas", "lc_class": 200, "weight": 4,},
+            {"lc_category": "Consolidated bare areas", "lc_class": 201, "weight": 0,},
+            {"lc_category": "Unconsolidated bare areas", "lc_class": 202, "weight": 0,},
+            {"lc_category": "Water bodies", "lc_class": 210, "weight": 4,},
+            {"lc_category": "Permanent snow and ice", "lc_class": 220, "weight": 0,},
         ],
     }
 
@@ -255,8 +207,7 @@ class HIILanduse(HIITask):
         )
 
         self.export_image_ee(
-            hii_landuse_driver,
-            f"driver/land_use",
+            hii_landuse_driver, f"driver/land_use",
         )
 
     def check_inputs(self):
