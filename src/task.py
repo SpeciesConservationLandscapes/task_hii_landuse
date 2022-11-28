@@ -8,7 +8,7 @@ class HIILanduse(HIITask):
     inputs = {
         "esacci": {
             "ee_type": HIITask.IMAGECOLLECTION,
-            "ee_path": "ESA-CCI-LC-L4-LCCS",
+            "ee_path": "projects/HII/v1/source/lc/ESA-CCI-LC-L4-LCCS",
             "maxage": 1,
         },
         "watermask": {
